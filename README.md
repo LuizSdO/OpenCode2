@@ -5,17 +5,17 @@ Uma API para acessar portfólios públicos ou pessoais.
 - Login
     - [Cadastro-usuario](#cadastro-usuario)
     - [Login](#realização-do-login)
-- Pagina Inicial
+- Código
     - [adicionar-codigo](#adicionar-codigo)
     - [excluir-codigo](#excluir-codigo)
     - [acessar-codigo](#acessar-codigo)
-- WorkSheet
+    - [acesarTodos-codigo](#acessarTodos-codigo)
     - [editar-codigo](#editar-codigo)
-    - [selecionar-linguagem](#selecionar-linguagem)
-    - [salvar-alteracoes](#salvar-alteracoes)
 - Portfolios
     - [publicar-portfolio](#publicar-portfolio)
-    - [clonar-portfolio](#clonar-portfolio)
+    - [editar-portfolio](#editar-portfolio)
+    - [excluir-portfolio](#excluir-portfolio)
+    - [acessar-portfolio](#acessar-portfolio)
 
 ### Cadastrar Usuario
 
