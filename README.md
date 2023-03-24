@@ -197,7 +197,7 @@ Uma API para acessar portfólios públicos ou pessoais.
 |201 | portfolio publicado com sucesso
 |400 | erro ao publicar o portfolio
 
-### Editar Portfólio
+### Editar Portfolio
 `POST` /OpenCode/api/editar-portfolio
 
 *Campos de requisição*
@@ -221,7 +221,7 @@ Uma API para acessar portfólios públicos ou pessoais.
 |400 | erro ao editar o portfolio
 
 
-### Deletar Portfólio
+### Excluir Portfólio
 `DELETE` /OpenCode/api/excluir-portfolio
 
 *Campos de requisição*
