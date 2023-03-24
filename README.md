@@ -221,7 +221,7 @@ Uma API para acessar portfólios públicos ou pessoais.
 |400 | erro ao editar o portfolio
 
 
-### Excluir Portfólio
+### Excluir Portfolio
 `DELETE` /OpenCode/api/excluir-portfolio
 
 *Campos de requisição*
@@ -247,7 +247,7 @@ Uma API para acessar portfólios públicos ou pessoais.
 |400 | erro ao excluir o portfólio
 
 
-### Acessar Portfólio
+### Acessar Portfolio
 `GET` /OpenCode/api/acessar-portfolio
 
 *Campos de requisição*
