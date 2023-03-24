@@ -248,7 +248,7 @@ Uma API para acessar portfólios públicos ou pessoais.
 
 
 ### Acessar Portfólio
-`GET` /OpenCode/api/Acessar-portfolio
+`GET` /OpenCode/api/acessar-portfolio
 
 *Campos de requisição*
 
