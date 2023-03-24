@@ -12,7 +12,7 @@ Uma API para acessar portfólios públicos ou pessoais.
     - [acesarTodos-codigo](#acessarTodos-codigo)
     - [editar-codigo](#editar-codigo)
 - Portfolios
-    - [publicar-portfolio](#publicar-portfolio)
+    - [publicar-portfolio](#publica-portfolio)
     - [editar-portfolio](#editar-portfolio)
     - [excluir-portfolio](#excluir-portfolio)
     - [acessar-portfolio](#acessar-portfolio)
