@@ -30,8 +30,8 @@ Uma API para acessar portfólios públicos ou pessoais.
 *Exemplo de requisição*
 ```json
 {
-    email: "exemplo@gmail.com",
-    senha: "exemplosenha123",
+    "email": "exemplo@gmail.com",
+    "senha": "exemplosenha123",
 }
 ```
 
@@ -48,8 +48,8 @@ Uma API para acessar portfólios públicos ou pessoais.
 
 ```json
 {
-    email: "exemplo@gmail.com",
-    senha: "exemplosenha123",
+    "email": "exemplo@gmail.com",
+    "senha": "exemplosenha123",
 }
 ```
 *Resposta* 
@@ -69,11 +69,13 @@ Uma API para acessar portfólios públicos ou pessoais.
 |-------|-------|:------------:|----------|
 |id-usuario | numero | sim | identificação do usuario
 |codigo | texto | sim | codigo feito pelo usuario 
+
+
 *Exemplo de requisição*
 ```json
 {
-    id-usuario : 001,
-    codigo: "arquivo_codigo.py",
+    "id-usuario ": 001,
+    "codigo": "arquivo_codigo.py",
 }
 ```
 
@@ -99,9 +101,9 @@ Uma API para acessar portfólios públicos ou pessoais.
 *Exemplo de requisição*
 ```json
 {
-    id-usuario : 001,
-    senha-usuario: "senhaexemplo123",
-    id-codigo: 010,
+    "id-usuario": 001,
+    "senha-usuario": "senhaexemplo123",
+    "id-codigo": 010,
 }
 ```
 
@@ -126,8 +128,8 @@ Uma API para acessar portfólios públicos ou pessoais.
 *Exemplo de requisição*
 ```json
 {
-    id-usuario : 001,
-    id-codigo: 010,
+    "id-usuario": 001,
+    "id-codigo": 010,
 }
 ```
 
@@ -153,8 +155,8 @@ Uma API para acessar portfólios públicos ou pessoais.
 *Exemplo de requisição*
 ```json
 {
-    id-portfolio : 4000,
-    titulo-codigo: "codigo01",
+    "id-portfolio": 4000,
+    "titulo-codigo": "codigo01",
 }
 ```
 
@@ -164,57 +166,6 @@ Uma API para acessar portfólios públicos ou pessoais.
 |200 | edicao do codigo autorizada
 |400 | erro ao editar o codigo
 
-
-### Selecionar Linguagem
-
-`GET` /OpenCode/api/selecionar-linguagem
-
-*Campos de requisição*
-
-| campo | tipo | obrigatorio | descricao
-|-------|-------|:------------:|----------|
-| nome-linguagem | texto | sim | a linguagem escolhida pelo usuario
-
-*Exemplo de requisição*
-```json
-{
-    nome-linguagem : "java",
-}
-```
-
-*Campos da resposta*
-|codigo | descricao
-|-------|----------
-|200 | linguagem selecionada com sucesso
-|400 | erro ao escolher linguagem
-
-
-### Salvar Alterações 
-
-`POST` /OpenCode/api/salvar-alteracoes
-
-*Campos de requisição*
-
-| campo | tipo | obrigatorio | descricao
-|-------|-------|:------------:|----------|
-| id-codigo | numero | sim | identificacao do codigo
-|nome-codigo | texto | sim | nome do codigo
-|id-portfolio | numero | sim | identificacao do portfolio
-
-*Exemplo de requisição*
-```json
-{
-    id-codigo: 1002,
-    nome-codigo: "codigoexemplo",
-    id-portfolio: 4008,
-}
-```
-
-*Campos da resposta*
-|codigo | descricao
-|-------|----------
-|201 | alteracoes salvas no portfolio com sucesso
-|400 | erro ao salvar alteracoes
 
 
 ### Publicar Portfolio 
@@ -229,16 +180,14 @@ Uma API para acessar portfólios públicos ou pessoais.
 |nome-usuario | texto | sim | nome do usuario
 |id-portfolio | numero | sim | identificacao do portfolio
 |nome-portfolio | texto | sim | nome do portfolio
-|senha-usuario | texto | sim | senha do usuario
 
 *Exemplo de requisição*
 ```json
 {
-    id-usuario: 001,
-    nome-usuario: "user201",
-    id-portfolio: 4008,
-    nome-portfolio: "projeto.java",
-    senha-usuario: "senhauser201",
+    "id-usuario": 001,
+    "nome-usuario": "user201",
+    "id-portfolio": 4008,
+    "nome-portfolio": "projeto.java",
 }
 ```
 
@@ -248,28 +197,76 @@ Uma API para acessar portfólios públicos ou pessoais.
 |201 | portfolio publicado com sucesso
 |400 | erro ao publicar o portfolio
 
-
-### Clonar Portfolio 
-
-`GET` /OpenCode/api/clonar-portfolio
+### Editar Portfólio
+`POST` /OpenCode/api/editar-portfolio
 
 *Campos de requisição*
 
 | campo | tipo | obrigatorio | descricao
 |-------|-------|:------------:|----------|
-| id-usuario | numero | sim | identificacao do usuario
+|id-portfolio | numero | sim | identificacao do portfolio
+|nome-portfolio | texto | sim | nome do portfolio
+
+*Exemplo de requisição*
+```json
+{
+    "id-portfolio": 4008,
+    "nome-portfolio": "projeto.java",
+}
+```
+*Campos da resposta*
+|codigo | descricao
+|-------|----------
+|200 | edição do portfólio autorizado
+|400 | erro ao editar o portfolio
+
+
+### Deletar Portfólio
+`DELETE` /OpenCode/api/excluir-portfolio
+
+*Campos de requisição*
+
+| campo | tipo | obrigatorio | descricao
+|-------|-------|:------------:|----------|
+|id-portfolio | numero | sim | identificacao do portfolio
+|nome-portfolio | texto | sim | nome do portfolio
+|senha-usuario | texto | sim | senha do usuário
+
+*Exemplo de requisição*
+```json
+{
+    "id-portfolio": 4008,
+    "nome-portfolio": "projeto.java",
+    "senha-usuario": "senhaexemplo123"
+}
+```
+*Campos da resposta*
+|codigo | descricao
+|-------|----------
+|200 | o portfólio foi excluido com sucesso
+|400 | erro ao excluir o portfólio
+
+
+### Acessar Portfólio
+`GET` /OpenCode/api/Acessar-portfolio
+
+*Campos de requisição*
+
+| campo | tipo | obrigatorio | descricao
+|-------|-------|:------------:|----------|
+|id-usuario | numero | sim | identificação do usuario
 |id-portfolio | numero | sim | identificacao do portfolio
 
 *Exemplo de requisição*
 ```json
 {
-    id-usuario: 001,
-    id-portfolio: 4008,
+    "id-usuario": 001,
+    "id-portfolio": 4008,
 }
 ```
-
 *Campos da resposta*
 |codigo | descricao
 |-------|----------
-|201 | o portfolio foi adicionado a sua biblioteca com sucesso 
-|400 | erro ao clonar o portfolio
+|200 | o acesso ao portfólio foi autorizado
+|400 | erro ao acessar portfólio
+
