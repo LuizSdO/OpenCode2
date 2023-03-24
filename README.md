@@ -177,7 +177,6 @@ Uma API para acessar portfólios públicos ou pessoais.
 | campo | tipo | obrigatorio | descricao
 |-------|-------|:------------:|----------|
 | id-usuario | numero | sim | identificacao do usuario
-|nome-usuario | texto | sim | nome do usuario
 |id-portfolio | numero | sim | identificacao do portfolio
 |nome-portfolio | texto | sim | nome do portfolio
 
@@ -185,7 +184,6 @@ Uma API para acessar portfólios públicos ou pessoais.
 ```json
 {
     "id-usuario": 001,
-    "nome-usuario": "user201",
     "id-portfolio": 4008,
     "nome-portfolio": "projeto.java",
 }
