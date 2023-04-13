@@ -30,4 +30,11 @@ public class Usuario {
         this.senha = senha;
         this.email = email;
     }
+
+    public Usuario(Long id, String nome, String senha, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+    }
 }
