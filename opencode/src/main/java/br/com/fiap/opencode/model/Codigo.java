@@ -1,54 +1,24 @@
 package br.com.fiap.opencode.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
 
-@Entity(name = "Codigo")
+@Data
+@NoArgsConstructor
+
 public class Codigo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idUsuario;
     private String codigo;
 
-    
-    public Codigo(Long id, Long idUsuario, String codigo) {
-        this.id = id;
-        this.idUsuario = idUsuario;
+    @ManyToOne
+    private Usuario usuario;
+
+    public Codigo(String codigo, Usuario usuario) {
         this.codigo = codigo;
+        this.usuario = usuario;
     }
-    
-    
-    public Codigo() {
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-    public String getCodigo() {
-        return codigo;
-    }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    @Override
-    public String toString() {
-        return "Codigo [id=" + id + ", idUsuario=" + idUsuario + ", codigo=" + codigo + "]";
-    }
-    
-
-    
 }
