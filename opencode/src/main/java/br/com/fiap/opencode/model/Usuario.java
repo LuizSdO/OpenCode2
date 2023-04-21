@@ -1,5 +1,6 @@
 package br.com.fiap.opencode.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,11 @@ public class Usuario {
     private String email;
 
     @OneToMany
+    @JsonIgnore
     private List<Codigo> codigos;
 
     @OneToMany
+    @JsonIgnore
     private List<Portfolio> portfolios;
 
     public Usuario(String nome, String senha, String email) {
