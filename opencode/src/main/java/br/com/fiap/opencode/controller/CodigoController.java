@@ -3,6 +3,7 @@ package br.com.fiap.opencode.controller;
 
 import java.util.List;
 
+import br.com.fiap.opencode.model.Usuario;
 import br.com.fiap.opencode.repository.CodigoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 
 import br.com.fiap.opencode.model.Codigo;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,9 +29,13 @@ public class CodigoController {
 	@Autowired
 	CodigoRepository repository;
 
+	@Autowired
+	PagedResourcesAssembler<Object> assembler;
+
 	@GetMapping("/api/codigo")
-	public Page<Codigo> index(@PageableDefault(size = 5)Pageable pageable){
-		return repository.findAll(pageable);
+	public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
+		Page<Codigo> codigos = repository.findAll(pageable);
+		return assembler.toModel(codigos.map(Codigo::toEntityModel));
 	}
 
 
@@ -40,15 +43,18 @@ public class CodigoController {
 	public ResponseEntity<Codigo> create(@RequestBody Codigo codigo) {
 		log.info("cadastrando codigo: " + codigo);
 		repository.save(codigo);
-		return ResponseEntity.status(HttpStatus.CREATED).body(codigo);
+		codigo.setUsuario(repository.findById(codigo.getUsuario().getId()).get().getUsuario());
+		return ResponseEntity
+				.created(codigo.toEntityModel().getRequiredLink("self").toUri())
+				.body(codigo.toEntityModel().getContent());
 	}
 
 	@GetMapping("api/codigo/{id}")
-	public ResponseEntity<Codigo> show(@PathVariable Long id) {
+	public EntityModel<Codigo> show(@PathVariable Long id) {
 		log.info("Buscar codigo " + id);
-		var codigoEncontrada = repository.findById(id)
+		var codigo = repository.findById(id)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Código não Encontrado"));
-		return ResponseEntity.ok(codigoEncontrada);
+		return codigo.toEntityModel();
 	}
 
 	@DeleteMapping("/api/codigo/{id}")
@@ -60,11 +66,11 @@ public class CodigoController {
 	}
 
 	@PutMapping("/api/codigo/{id}")
-	public ResponseEntity<Codigo> update(@PathVariable Long id, @RequestBody Codigo codigo) {
+	public EntityModel<Codigo> update(@PathVariable Long id, @RequestBody Codigo codigo) {
 		var codigoEncontrada = repository.findById(id)
 				.orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Código não Encontrado"));
 		codigo.setId(id);
 		repository.save(codigoEncontrada);
-		return ResponseEntity.ok(codigo);
+		return codigo.toEntityModel();
 	}
 }
