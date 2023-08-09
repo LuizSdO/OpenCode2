@@ -40,8 +40,8 @@ public class Codigo {
                 this,
                 linkTo(methodOn(CodigoController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(CodigoController.class).delete(id)).withRel("delete"),
-                linkTo(methodOn(CodigoController.class).index(null, Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(UsuarioController.class).show(this.getUsuario().getId())).withRel("usuario")
+                linkTo(methodOn(CodigoController.class).index(null, Pageable.unpaged())).withRel("all")
+
         );
     }
 }

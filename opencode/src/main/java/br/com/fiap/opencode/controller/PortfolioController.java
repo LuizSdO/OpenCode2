@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.hateoas.PagedModel;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class PortfolioController {
         PagedResourcesAssembler<Object> assembler;
 
         @GetMapping("/api/portfolio")
-        public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
+        public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca,
+                                                     @ParameterObject @PageableDefault(size = 5) Pageable pageable){
             Page<Portfolio> portfolios = repository.findAll(pageable);
             return assembler.toModel(portfolios.map(Portfolio::toEntityModel));
         }

@@ -39,8 +39,8 @@ public class Portfolio {
                 this,
                 linkTo(methodOn(PortfolioController.class).show(id)).withSelfRel(),
                 linkTo(methodOn(PortfolioController.class).delete(id)).withRel("delete"),
-                linkTo(methodOn(PortfolioController.class).index(null, Pageable.unpaged())).withRel("all"),
-                linkTo(methodOn(UsuarioController.class).show(this.getUsuario().getId())).withRel("usuario")
+                linkTo(methodOn(PortfolioController.class).index(null, Pageable.unpaged())).withRel("all")
+
         );
     }
 }

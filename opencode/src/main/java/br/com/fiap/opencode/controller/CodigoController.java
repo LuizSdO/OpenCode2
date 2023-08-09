@@ -3,7 +3,8 @@ package br.com.fiap.opencode.controller;
 
 import java.util.List;
 
-import br.com.fiap.opencode.model.Usuario;
+import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import br.com.fiap.opencode.repository.CodigoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,20 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import br.com.fiap.opencode.model.Codigo;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequestMapping("/api/codigo")
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Codigo", description = "Código do usuário")
+
+
 public class CodigoController {
 
 	Logger log = LoggerFactory.getLogger(CodigoController.class);
@@ -33,6 +43,10 @@ public class CodigoController {
 	PagedResourcesAssembler<Object> assembler;
 
 	@GetMapping("/api/codigo")
+	@Operation(
+			summary = "Listar codigos",
+			description = "Retorna todos os codigos"
+	)
 	public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
 		Page<Codigo> codigos = repository.findAll(pageable);
 		return assembler.toModel(codigos.map(Codigo::toEntityModel));
@@ -40,15 +54,17 @@ public class CodigoController {
 
 
 	@PostMapping("/api/codigo")
-	public ResponseEntity<Codigo> create(@RequestBody Codigo codigo) {
-		log.info("cadastrando codigo: " + codigo);
-		repository.save(codigo);
-		codigo.setUsuario(repository.findById(codigo.getUsuario().getId()).get().getUsuario());
-		return ResponseEntity
-				.created(codigo.toEntityModel().getRequiredLink("self").toUri())
-				.body(codigo.toEntityModel().getContent());
-	}
 
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Acesso ao codigo com sucesso"),
+			@ApiResponse(responseCode = "400", description = "Erro ao acessar o codigo do portfolio")
+	}
+	)
+	public ResponseEntity<Codigo> create(@RequestBody @Valid @ParameterObject Codigo codigo) {
+		log.info("postando codigo " + codigo);
+		repository.save(codigo);
+		return ResponseEntity.status(HttpStatus.CREATED).body(codigo);
+	}
 	@GetMapping("api/codigo/{id}")
 	public EntityModel<Codigo> show(@PathVariable Long id) {
 		log.info("Buscar codigo " + id);
