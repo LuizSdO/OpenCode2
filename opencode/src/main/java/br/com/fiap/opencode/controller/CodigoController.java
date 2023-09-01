@@ -42,7 +42,7 @@ public class CodigoController {
 	@Autowired
 	PagedResourcesAssembler<Object> assembler;
 
-	@GetMapping("/api/codigo")
+	@GetMapping
 	@Operation(
 			summary = "Listar codigos",
 			description = "Retorna todos os codigos"
