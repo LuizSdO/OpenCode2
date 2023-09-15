@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.metamodel.mapping.EntityValuedModelPart;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +29,11 @@ public class Codigo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codigo;
 
+    @NotBlank(message = "O nome é obrigatório")
+    private String codigo;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    @Min(value=0, message = "O codigo não pode estar em branco")
     @ManyToOne
     private Usuario usuario;
 

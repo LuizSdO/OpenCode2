@@ -49,6 +49,7 @@ public class CodigoController {
 	)
 	public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
 		Page<Codigo> codigos = repository.findAll(pageable);
+		log.info("Buscando contas no BD");
 		return assembler.toModel(codigos.map(Codigo::toEntityModel));
 	}
 
